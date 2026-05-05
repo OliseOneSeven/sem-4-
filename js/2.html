@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style type="text/css">
+        .error {
+            color:red;
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <form id="contactForm">
+        <h1>Contact Us</h1>
+    <table>
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" name="name" id="contact_name" />
+                    <br />
+                    <span class="error" id="err_name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="email" name="email" id="contact_email" />
+                    <br />
+                    <span class="error" id="err_email"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td>
+                    <textarea id="contact_message" rows="5" cols="50" ></textarea>
+                    <br />
+                    <span id="cnt">0</span>
+                    &nbsp;
+                    <span class="error" id="err_message"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <button type="submit">Submit</button>
+                    <button type="reset">Reset</button>
+                </td>
+            </tr>
+        </thead>
+    </table>
+    </form>
+    <script>
+        let contactForm = document.getElementById("contactForm");
+        let message = document.querySelector("#contact_message");
+        let cntEle = document.querySelector("#cnt");
+
+
+        message.addEventListener("keyup", (e) => {
+            let cnt = message.value.trim().length;
+            cntEle.innerHTML = cnt;
+        });
+
+        contactForm.addEventListener("submit", (e) => {
+            try{
+                e.preventDefault();
+                let isValid = true;
+
+                let name = document.querySelector("#contact_name");
+                let nameErr = document.querySelector("#err_name");
+                
+                let email = document.querySelector("#contact_email");
+                let emailErr = document.querySelector("#err_email");
+                
+                let messageErr = document.querySelector("#err_message");
+                
+                if(name.value.trim() == '') {
+                    nameErr.innerHTML = "Required.";
+                    isValid = false;
+                } else if(name.value.trim().length < 3) {
+                    nameErr.innerHTML = "Minimum 3 characters are required.";
+                    isValid = false;
+                }  else {
+                    nameErr.innerHTML = "";
+                }
+
+                if (email.value.trim() == '') {
+                    emailErr.innerHTML = "Required.";
+                    isValid = false;
+                } else {
+                    email.innerHTML = "";
+                }
+
+                if(message.value.trim() == '') {
+                    messageErr.innerHTML = "Required.";
+                    isValid = false;
+                } else if(message.value.trim().length < 10) {
+                    messageErr.innerHTML = "Must be minimum 10 characters.";
+                    isValid = false;
+                } else {
+                    messageErr.innerHTML = "";
+                }
+
+                if(isValid) {
+                    alert("Done");
+                }
+
+            }catch (e) {
+                console.log(e)
+            }
+        });
+    </script>
+</body>
+</html>

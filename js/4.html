@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Guess Number Game</title>
+</head>
+<body>
+    <h1>Guess Number Game</h1>
+    Enter Number: <input type="number" value="n" id="n" /> <button id="go" disabled>Go</button> <br /><br />
+    <span id="attempts"></span>&nbsp;
+    <span id="msg"></span>
+    <br />
+    <br />
+    <button id="start">Start</button>&nbsp;
+    <button id="reset" disabled>Reset</button>
+
+    <script>
+        let btnGo = document.querySelector("#go");
+        let btnStart = document.querySelector("#start");
+        let btnReset = document.querySelector("#reset");
+
+        let attempts = document.querySelector("#attempts");
+        let msg = document.querySelector("#msg");
+
+        let nEle = document.querySelector("#n");
+        let number = null;
+
+        btnStart.addEventListener("click", (e) => {
+            btnReset.removeAttribute("disabled");
+            btnGo.removeAttribute("disabled");
+
+            btnStart.setAttribute("disabled", true);
+
+            attempts.innerHTML = 0;
+            number = Math.floor(Math.random() * 100) + 1;
+            console.log(number);
+        });
+
+        btnReset.addEventListener("click", (e) => {
+            btnReset.setAttribute("disabled", true);
+            btnStart.removeAttribute("disabled");
+            btnGo.setAttribute("disabled", true);
+            attempts.innerHTML = "";
+            number = null;
+            msg.innerHTML = "";
+        });
+
+        btnGo.addEventListener("click", (e) => {
+            let n = nEle.value;
+            nEle.value = "";
+            
+            if(n.trim() == "") {
+                alert("Please enter number.");
+                return false;
+            }
+            
+            attemptsCnt = parseInt(attempts.innerHTML);
+            attempts.innerHTML = attemptsCnt +1;
+            
+            if(n < number) {
+                msg.innerHTML = '<span style="color:red">Too low</span>'
+            } else if(n > number ) {
+                msg.innerHTML = '<span style="color:red">Too high</span>'
+            } else {
+                msg.innerHTML = '<span style="color:green">Correct</span>'
+            }
+        })
+    </script>
+
+</body>
+</html>
