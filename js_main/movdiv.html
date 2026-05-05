@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move</title>
+    <style type="text/css">
+        #container {
+            position: relative;
+            border: 1px solid black;   
+        }
+
+        #box {
+            position: absolute;            
+            border: 1px solid blue;
+            background-color: blue;
+            transition:  1s;
+        }
+
+        table td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" style="height: 300px; width: 300px;">
+        <div id="box" style="top: 0px; left: 0px; height: 30px; width: 30px;">&nbsp;</div>
+    </div>
+    <table>
+        <tbody>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button id="btnUp">Up</button></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button id="btnLeft">Left</button></td>
+                <td>&nbsp;</td>
+                <td><button id="btnRight">Right</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button id="btnDown">Down</button></td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        let btnUp = document.querySelector("#btnUp");
+        let btnDown = document.querySelector("#btnDown");
+        let btnLeft = document.querySelector("#btnLeft");
+        let btnRight = document.querySelector("#btnRight");
+        let box = document.querySelector("#box");
+        let container = document.querySelector("#container");
+
+        const moveUnit = 100;
+
+        btnUp.addEventListener('click', () => {
+            let curTop = parseInt(box.style.top);
+            let newTop = curTop - moveUnit;
+
+            if(newTop < 0) {
+                newTop = 0;
+            }
+
+            box.style.top = newTop + 'px';
+        });
+
+        btnDown.addEventListener('click', () => {
+            let curTop = parseInt(box.style.top);
+            let newTop = curTop + moveUnit;
+           
+            let containerHeight = parseInt(container.style.height);
+            let boxHeight = parseInt(box.style.height);
+            let allowed = containerHeight - boxHeight;
+
+            if (newTop > allowed) {
+                newTop = allowed;
+            }
+
+            box.style.top = newTop + 'px';
+        });
+
+
+        btnLeft.addEventListener('click', () => {
+            let curLeft = parseInt(box.style.left);
+            let newLeft = curLeft - moveUnit;
+
+            if(newLeft < 0) {
+                newLeft = 0;
+            }
+        
+            box.style.left = newLeft + 'px';
+        });
+
+
+        btnRight.addEventListener('click', () => {
+            let curLeft = parseInt(box.style.left);
+            let newLeft = curLeft + moveUnit;
+
+            let containerWidth = parseInt(container.style.width);
+            let boxWidth = parseInt(box.style.width);
+
+            let allowed = containerWidth - boxWidth;
+
+            if(newLeft > allowed) {
+                newLeft = allowed;
+            }
+
+            
+            box.style.left = newLeft + 'px';
+        });
+    </script>
+</body>
+</html>
