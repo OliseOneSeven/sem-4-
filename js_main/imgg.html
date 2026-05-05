@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    <img width="200" src="images/2.jpg" id="img" /><br />
+    <button id="prev">Prev</button>&nbsp;
+    <button id="next">Next</button>&nbsp;
+    <button id="auto">Auto</button>
+    <script>
+        let img = document.querySelector("#img");
+        
+
+        let btnPrev = document.querySelector("#prev");
+        let btnNext = document.querySelector("#next");
+        let btnAuto = document.querySelector("#auto");
+
+        btnNext.addEventListener("click", () => {
+            let cntImage = parseInt(img.getAttribute("src").replace("images/", "").replace(".jpg", ""));
+            cntImage = cntImage + 1;
+
+            if(cntImage > 3) {
+                cntImage = 1;
+            }
+
+            img.setAttribute("src", "images/" + cntImage + '.jpg');
+        });
+
+        btnPrev.addEventListener("click", () => {
+            let cntImage = parseInt(img.getAttribute("src").replace("images/", "").replace(".jpg", ""));
+            cntImage = cntImage - 1;
+
+            if (cntImage < 1) {
+                cntImage = 3;
+            }
+
+            img.setAttribute("src", "images/" + cntImage + '.jpg');
+        });
+
+        let imgInterval = null;
+        let isAuto = false;
+        btnAuto.addEventListener("click", () => {
+            if(!isAuto) {
+                isAuto = true;
+                imgInterval = setInterval(() => {
+                    btnNext.click();
+                }, 1000);
+            } else {
+                isAuto = false;
+                clearInterval(imgInterval);
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task list</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    Task Name : <input name="task" id="taskText" type="text" /> <input type="button" id="go" value="Go"  name="go"/> <br />
+    <ul id="list">
+    </ul>
+
+    <script>
+        let list = document.getElementById("list");
+        let btnGo = document.getElementById("go");
+        let taskEle = document.getElementById("taskText");
+
+        btnGo.addEventListener("click", () => {
+            let taskText = taskEle.value.trim();
+            if(taskText == "") {
+                alert("Please enter task.")
+                return false;
+            }
+
+            taskEle.value = "";
+
+            let li = document.createElement("li");
+            li.innerText = taskText;
+            li.addEventListener("click", (e) => {
+                e.target.style.textDecoration = "line-through";
+            });
+            list.appendChild(li);
+        });
+    </script>
+</body>
+</html>
